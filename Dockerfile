@@ -1,4 +1,4 @@
-FROM node:9 as react-builder
+FROM node:13 as react-builder
 WORKDIR /app
 COPY . .
 RUN yarn run build
