@@ -6,9 +6,13 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 
 export default class Header extends React.Component {
-    state = {
-        time: new Date().now
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            time: new Date()
+        };
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
     componentDidMount() {
         setInterval(
@@ -16,7 +20,16 @@ export default class Header extends React.Component {
           1000
         );
     }
-    
+
+    handleSubmit(event) {
+        event.preventDefault();
+        let elements = event.target.elements;
+        this.props.onSubmit({
+            start_point: elements.start.value,
+            end_point: elements.end.value
+        });
+    }
+     
     render() {
         return (
             <Navbar expand="lg" bg="dark" variant="dark" collapseOnSelect>
@@ -26,10 +39,10 @@ export default class Header extends React.Component {
                 </Navbar.Text>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse className="justify-content-end" id="responsive-navbar-nav">
-                    <Form inline>
-                        <FormControl type="text" placeholder="Starting point" className="mr-sm-2" />
-                        <FormControl type="text" placeholder="End point" className="mr-sm-2" />
-                        <Button variant="outline-success">Get routes</Button>
+                    <Form onSubmit={this.handleSubmit} inline>
+                        <FormControl name="start" type="text" placeholder="Starting point" className="m-2" required />
+                        <FormControl name="end" type="text" placeholder="End point" className="m-2" required />
+                        <Button variant="outline-success" type="submit" className="m-2">Get routes</Button>         
                     </Form>
                 </Navbar.Collapse>
             </Navbar>

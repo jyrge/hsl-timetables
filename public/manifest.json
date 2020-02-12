@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "HSL Timetables",
+  "name": "Get timetables for HSL public transport between two endpoints.",
   "icons": [
     {
       "src": "favicon.ico",
