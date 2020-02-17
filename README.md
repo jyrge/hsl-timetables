@@ -6,7 +6,7 @@ Fetches simple timetables for public transportation in Helsinki area (HSL) betwe
 
 * Search locations by their known names / addresses (uses the closest interpretation from Digitransit Geocoding API, so try to be specific)
 
-* Fetches and displays three next itineraries for routes from Digitransit Routing API, in real time.
+* Fetches and displays three next itineraries from Digitransit Routing API, in real time.
 
 Well, atm it doesn't do anything else.
 
