@@ -1,0 +1,41 @@
+query Routes($fromLat: Float!, $fromLon: Float!, $toLat: Float!, $toLon: Float!) {
+    plan(
+    from: {lat: $fromLat, lon: $fromLon}
+    to: {lat: $toLat, lon: $toLon}
+    numItineraries: 3
+    ) {
+    itineraries {
+        legs {
+            startTime
+            endTime
+            mode
+            duration
+            realTime
+            distance
+            transitLeg
+            from {
+                lat
+                lon
+                name
+                stop {
+                    code
+                    name
+                }
+                },
+            to {
+                lat
+                lon
+                name
+                stop {
+                    code
+                    name
+                }
+            },
+            trip {
+                tripHeadsign
+                routeShortName
+            }
+        }
+    }
+    }
+}

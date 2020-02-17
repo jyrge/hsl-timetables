@@ -10,6 +10,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 
 const client = new ApolloClient({
   uri: 'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql',
+  connectToDevTools: true
 });
 
 ReactDOM.render(
