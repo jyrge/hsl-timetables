@@ -9,6 +9,8 @@ const ROUTE_QUERY = loader("../queries/routes.graphql");
 
 function renderStep(row, index, tab) {
     let key_base = tab.toString() + "-" + index.toString();
+
+    let distance = row.distance >= 1000 ? (Math.round(row.distance / 100) / 10).toString() + " km" : Math.round(row.distance).toString() + " m";
     
     return (
         <tr key={key_base}>
@@ -18,8 +20,9 @@ function renderStep(row, index, tab) {
             <td key={key_base + "-3"}>{row.fromPlace}</td>
             <td key={key_base + "-4"}>{row.toPlace}</td>
             <td key={key_base + "-5"}>{row.endTime}</td>
-            <td key={key_base + "-6"}>{row.route}</td>
-            <td key={key_base + "-7"}>{row.headSign}</td>
+            <td key={key_base + "-6"}>{distance}</td>
+            <td key={key_base + "-7"}>{row.route}</td>
+            <td key={key_base + "-8"}>{row.headSign}</td>
         </tr>
     );
 }
@@ -43,8 +46,9 @@ function renderRoute(route, num, dur) {
                             <th key={key_base + "h3"}>From</th>
                             <th key={key_base + "h4"}>To</th>
                             <th key={key_base + "h5"}>Arrival</th>
-                            <th key={key_base + "h6"}>Route</th>
-                            <th key={key_base + "h7"}>Headsign</th>
+                            <th key={key_base + "h6"}>Distance</th>
+                            <th key={key_base + "h7"}>Route</th>
+                            <th key={key_base + "h8"}>Headsign</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,6 +107,7 @@ export default function Timetable(props) {
                                 toPlace: y.to.name,
                                 startTime: new Date(y.startTime).toLocaleString("en-GB"),
                                 endTime: new Date(y.endTime).toLocaleString("en-GB"),
+                                distance: y.distance,
                                 route: y.trip ? y.trip.routeShortName : "",
                                 headSign: y.trip ? y.trip.tripHeadsign : ""
                             };      
