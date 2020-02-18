@@ -24,27 +24,35 @@ function renderStep(row, index, tab) {
     );
 }
 
-function renderTable(table, num) {
+function renderRoute(route, num, dur) {
+
     let key_base = num.toString();
+
+    let dur_minutes = Math.ceil(dur / 60);
     
     return (
-        <Table striped hover key={key_base}>
-            <thead>
-                <tr key={key_base + "h"}>
-                    <th key={key_base + "h0"}>#</th>
-                    <th key={key_base + "h1"}>Mode</th>
-                    <th key={key_base + "h2"}>Departure</th>
-                    <th key={key_base + "h3"}>From</th>
-                    <th key={key_base + "h4"}>To</th>
-                    <th key={key_base + "h5"}>Arrival</th>
-                    <th key={key_base + "h6"}>Route</th>
-                    <th key={key_base + "h7"}>Headsign</th>
-                </tr>
-            </thead>
-            <tbody>
-                {table.map( (data, index) => renderStep(data, index, num)) }
-            </tbody>
-        </Table>
+        <Card key={"c" + key_base}>
+            <Card.Body>
+                <Card.Title># {num} | Duration {dur_minutes} min</Card.Title>
+                <Table striped hover key={"t" + key_base}>
+                    <thead>
+                        <tr key={key_base + "h"}>
+                            <th key={key_base + "h0"}>#</th>
+                            <th key={key_base + "h1"}>Mode</th>
+                            <th key={key_base + "h2"}>Departure</th>
+                            <th key={key_base + "h3"}>From</th>
+                            <th key={key_base + "h4"}>To</th>
+                            <th key={key_base + "h5"}>Arrival</th>
+                            <th key={key_base + "h6"}>Route</th>
+                            <th key={key_base + "h7"}>Headsign</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {route.map( (data, index) => renderStep(data, index, num)) }
+                    </tbody>
+                </Table>
+            </Card.Body>
+        </Card>
     );
 }
 
@@ -85,23 +93,28 @@ export default function Timetable(props) {
 
     if (data) {
         let routes = data.plan.itineraries.map(
-            x => x.legs.map(
-                y => {
-                    return {
-                        mode: y.mode,
-                        fromPlace: y.from.name,
-                        toPlace: y.to.name,
-                        startTime: new Date(y.startTime).toLocaleString("en-GB"),
-                        endTime: new Date(y.endTime).toLocaleString("en-GB"),
-                        route: y.trip ? y.trip.routeShortName : "",
-                        headSign: y.trip ? y.trip.tripHeadsign : ""
-                    };      
-                }
-        ));
-    
+            x => {
+                return {
+                    legs: x.legs.map(
+                        y => {
+                            return {
+                                mode: y.mode,
+                                fromPlace: y.from.name,
+                                toPlace: y.to.name,
+                                startTime: new Date(y.startTime).toLocaleString("en-GB"),
+                                endTime: new Date(y.endTime).toLocaleString("en-GB"),
+                                route: y.trip ? y.trip.routeShortName : "",
+                                headSign: y.trip ? y.trip.tripHeadsign : ""
+                            };      
+                        }
+                    ),
+                    duration: x.duration
+                };
+        });
+
         return (
             <div>
-                {routes.map( (table, index) => renderTable(table, index) )}
+                {routes.map( (route, index) => renderRoute(route.legs, index, route.duration) )}
             </div>
         );
     }

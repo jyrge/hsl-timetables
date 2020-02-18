@@ -5,6 +5,7 @@ query Routes($fromLat: Float!, $fromLon: Float!, $toLat: Float!, $toLon: Float!)
     numItineraries: 3
     ) {
     itineraries {
+        duration,
         legs {
             startTime
             endTime
