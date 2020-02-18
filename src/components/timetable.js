@@ -72,6 +72,7 @@ export default function Timetable(props) {
             toLat: coordinates.toLat,
             toLon: coordinates.toLon
         },
+        pollInterval: Object.keys(coordinates).length === 0 ? 0 : 30000
     });
 
     if (loading) {
@@ -79,9 +80,7 @@ export default function Timetable(props) {
             <Card className="text-center">
                 <Card.Body>
                     <Card.Title>Loading...</Card.Title>
-                    <Card.Text>
-                        Please wait!
-                    </Card.Text>
+                    <Card.Text>Please wait!</Card.Text>
                 </Card.Body>
             </Card>
         );
