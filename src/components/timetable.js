@@ -1,5 +1,7 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
+import Card from 'react-bootstrap/Card';
+import Alert from 'react-bootstrap/Alert'
 import { useQuery } from '@apollo/react-hooks';
 import { loader } from 'graphql.macro';
 
@@ -48,14 +50,10 @@ function renderTable(table, num) {
 
 export default function Timetable(props) {
 
-    let coordinates = props.coordinates || {
-        fromLat: 0.0,
-        fromLon: 0.0,
-        toLat: 0.0,
-        toLon: 0.0
-    };
+    let coordinates = props.coordinates;
 
     const { loading, error, data } = useQuery(ROUTE_QUERY, {
+        skip: Object.keys(coordinates).length === 0,
         variables: {
             fromLat: coordinates.fromLat,
             fromLon: coordinates.fromLon,
@@ -64,31 +62,59 @@ export default function Timetable(props) {
         },
     });
 
-    if (loading)
-        return "Loading...";
+    if (loading) {
+        return (
+            <Card className="text-center">
+                <Card.Body>
+                    <Card.Title>Loading...</Card.Title>
+                    <Card.Text>
+                        Please wait!
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+        );
+    }
     
-    if (error)
-        return "Error: " + error.message;
+    if (error) {
+        return (
+            <Alert variant="danger">
+                Error: {error.message}
+            </Alert>
+        );
+    }
 
-    let routes = data.plan.itineraries.map(
-        x => x.legs.map(
-            y => {
-                return {
-                    mode: y.mode,
-                    fromPlace: y.from.name,
-                    toPlace: y.to.name,
-                    startTime: new Date(y.startTime).toLocaleString(),
-                    endTime: new Date(y.endTime).toLocaleString(),
-                    route: y.trip ? y.trip.routeShortName : "",
-                    headSign: y.trip ? y.trip.tripHeadsign : ""
-                };      
-            }
-    ));
+    if (data) {
+        let routes = data.plan.itineraries.map(
+            x => x.legs.map(
+                y => {
+                    return {
+                        mode: y.mode,
+                        fromPlace: y.from.name,
+                        toPlace: y.to.name,
+                        startTime: new Date(y.startTime).toLocaleString(),
+                        endTime: new Date(y.endTime).toLocaleString(),
+                        route: y.trip ? y.trip.routeShortName : "",
+                        headSign: y.trip ? y.trip.tripHeadsign : ""
+                    };      
+                }
+        ));
+    
+        return (
+            <div>
+                {routes.map( (table, index) => renderTable(table, index) )}
+            </div>
+        );
+    }
 
     return (
-        <div>
-            {routes.map( (table, index) => renderTable(table, index) )}
-        </div>
+        <Card className="text-center">
+            <Card.Body>
+                <Card.Title>Nothing here!</Card.Title>
+                <Card.Text>
+                    To get timetables, search with endpoint names.
+                </Card.Text>
+            </Card.Body>
+        </Card>
     );
-    
+
 }
