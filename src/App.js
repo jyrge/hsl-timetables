@@ -36,10 +36,18 @@ export default class App extends React.Component {
     });
   }
 
+  clearData = () => {
+    this.setState({
+      start_point: "",
+      end_point: "",
+      coordinates: {}
+    });
+  }
+
   render() { 
     return (
       <div id="app">
-        <Header onSubmit={this.getEndpoints} />
+        <Header onSubmit={this.getEndpoints} onClear={this.clearData} />
         <Timetable coordinates={this.state.coordinates} />
       </div>
     );

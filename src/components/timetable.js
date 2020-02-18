@@ -91,8 +91,8 @@ export default function Timetable(props) {
                         mode: y.mode,
                         fromPlace: y.from.name,
                         toPlace: y.to.name,
-                        startTime: new Date(y.startTime).toLocaleString(),
-                        endTime: new Date(y.endTime).toLocaleString(),
+                        startTime: new Date(y.startTime).toLocaleString("en-GB"),
+                        endTime: new Date(y.endTime).toLocaleString("en-GB"),
                         route: y.trip ? y.trip.routeShortName : "",
                         headSign: y.trip ? y.trip.tripHeadsign : ""
                     };      
