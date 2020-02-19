@@ -70,9 +70,11 @@ export default function Timetable(props) {
             fromLat: coordinates.fromLat,
             fromLon: coordinates.fromLon,
             toLat: coordinates.toLat,
-            toLon: coordinates.toLon
+            toLon: coordinates.toLon,
+            num_itineraries: props.num_itineraries
         },
-        pollInterval: Object.keys(coordinates).length === 0 ? 0 : 30000
+        pollInterval: Object.keys(coordinates).length === 0 ? 0 : 30000,
+        fetchPolicy: "network-only"
     });
 
     if (loading) {

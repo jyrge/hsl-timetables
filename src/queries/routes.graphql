@@ -1,8 +1,8 @@
-query Routes($fromLat: Float!, $fromLon: Float!, $toLat: Float!, $toLon: Float!) {
+query Routes($fromLat: Float!, $fromLon: Float!, $toLat: Float!, $toLon: Float!, $num_itineraries: Int!) {
     plan(
     from: {lat: $fromLat, lon: $fromLon}
     to: {lat: $toLat, lon: $toLon}
-    numItineraries: 3
+    numItineraries: $num_itineraries
     ) {
     itineraries {
         duration,
