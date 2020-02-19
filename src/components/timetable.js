@@ -37,7 +37,7 @@ function renderRoute(route, num, dur) {
         <Card key={"c" + key_base}>
             <Card.Body>
                 <Card.Title># {num} | Duration {dur_minutes} min</Card.Title>
-                <Table striped hover key={"t" + key_base}>
+                <Table striped hover key={"t" + key_base} responsive>
                     <thead>
                         <tr key={key_base + "h"}>
                             <th key={key_base + "h0"}>#</th>
