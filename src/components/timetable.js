@@ -34,9 +34,9 @@ function renderRoute(route, num, dur) {
     let dur_minutes = Math.ceil(dur / 60);
     
     return (
-        <Card key={"c" + key_base}>
+        <Card className="m-1" key={"c" + key_base}>
             <Card.Body>
-                <Card.Title># {num} | Duration {dur_minutes} min</Card.Title>
+                <Card.Title># {num + 1} | Duration {dur_minutes} min</Card.Title>
                 <Table striped hover key={"t" + key_base} responsive>
                     <thead>
                         <tr key={key_base + "h"}>
@@ -79,7 +79,7 @@ export default function Timetable(props) {
 
     if (loading) {
         return (
-            <Card className="text-center">
+            <Card className="text-center m-1">
                 <Card.Body>
                     <Card.Title>Loading...</Card.Title>
                     <Card.Text>Please wait!</Card.Text>
@@ -90,13 +90,13 @@ export default function Timetable(props) {
     
     if (error) {
         return (
-            <Alert variant="danger">
+            <Alert variant="danger" className="m-1">
                 Error: {error.message}
             </Alert>
         );
     }
 
-    if (data) {
+    if (data && data.plan.itineraries.length !== 0) {
         let routes = data.plan.itineraries.map(
             x => {
                 return {
@@ -123,10 +123,21 @@ export default function Timetable(props) {
                 {routes.map( (route, index) => renderRoute(route.legs, index, route.duration) )}
             </div>
         );
+    } else if (data) {
+        return(
+            <Card className="text-center m-1">
+                <Card.Body>
+                    <Card.Title>No results!</Card.Title>
+                    <Card.Text>
+                        Routes were not found between the locations in your search. Make sure your locations are inside the HSL area.
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+        );
     }
 
     return (
-        <Card className="text-center">
+        <Card className="text-center m-1">
             <Card.Body>
                 <Card.Title>Nothing here!</Card.Title>
                 <Card.Text>

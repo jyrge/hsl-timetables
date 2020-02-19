@@ -1,6 +1,7 @@
 import React from 'react';
-import Header from "./components/header"
-import Timetable from "./components/timetable"
+import Header from "./components/header";
+import Timetable from "./components/timetable";
+import Alert from 'react-bootstrap/Alert';
 
 export default class App extends React.Component {
 
@@ -8,6 +9,7 @@ export default class App extends React.Component {
     start_point: "",
     end_point: "",
     coordinates: {},
+    error: false,
     num_itineraries: 3
   }
 
@@ -31,14 +33,17 @@ export default class App extends React.Component {
       });
       
     } catch(error) {
-      // No error handling here, yet.
+      this.setState({
+        error: "Could not resolve the locations."
+      });
     }
   }
   
   getEndpoints = (data) => {
     this.setState({
       start_point: data.start_point,
-      end_point: data.end_point
+      end_point: data.end_point,
+      error: false
     }, () => {
       this.getCoordinatesForAddresses();
     });
@@ -54,7 +59,8 @@ export default class App extends React.Component {
     this.setState({
       start_point: "",
       end_point: "",
-      coordinates: {}
+      coordinates: {},
+      error: false
     });
   }
 
@@ -62,6 +68,9 @@ export default class App extends React.Component {
     return (
       <div id="app">
         <Header onSubmit={this.getEndpoints} onClear={this.clearData} onRouteOptionsUpdate={this.getRouteOptions} />
+        {this.state.error && <Alert variant="danger" className="m-1" onClose={ () => this.setState({error: false}) } dismissible>
+          {this.state.error}
+        </Alert>}
         <Timetable coordinates={this.state.coordinates} num_itineraries={this.state.num_itineraries} />
       </div>
     );
