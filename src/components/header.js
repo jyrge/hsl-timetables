@@ -1,4 +1,5 @@
 import React from 'react';
+import Clock from "./clock.js";
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -12,7 +13,6 @@ export default class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            time: new Date().toLocaleString("en-GB"),
             depart_date: "Real time",
             datepicker_value: "",
             routeOptions: new Array(10).fill().map( (el, i) => i + 1),
@@ -27,13 +27,6 @@ export default class Header extends React.Component {
         this.selectRouteOption = this.selectRouteOption.bind(this);
         this.pickDate = this.pickDate.bind(this);
         this.toggleRealtime = this.toggleRealtime.bind(this);
-    }
-
-    componentDidMount() {
-        setInterval(
-          () => this.setState({ time: new Date().toLocaleString("en-GB") }),
-          1000
-        );
     }
 
     handleSubmit(event) {
@@ -88,7 +81,7 @@ export default class Header extends React.Component {
             <Navbar expand="lg" bg="dark" variant="dark" collapseOnSelect>
                 <Navbar.Brand>HSL Timetables</Navbar.Brand>
                 <Navbar.Text>
-                    {this.state.time}
+                    <Clock />
                 </Navbar.Text>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse className="justify-content-end" id="responsive-navbar-nav">
@@ -101,8 +94,8 @@ export default class Header extends React.Component {
                                 <Dropdown.Item disabled>Departure time</Dropdown.Item>
                                 <Dropdown.Item onClick={this.toggleRealtime}>Real time</Dropdown.Item>
                                 <Dropdown.Item disabled>
-                                    Set time below <br />
-                                    (close the dialog to confirm)
+                                    Delayed &#x25BC; <br />
+                                    (close to accept)
                                 </Dropdown.Item>
                                 <Datetime dateFormat="DD/MM/YYYY" timeFormat="HH:mm" inputProps={{ value: this.state.datepicker_value }} onBlur={this.pickDate} />
                             </Dropdown.Menu>
@@ -121,4 +114,5 @@ export default class Header extends React.Component {
             </Navbar>
         );
     }
+    
 }
