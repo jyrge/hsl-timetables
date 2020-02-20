@@ -9,6 +9,7 @@ export default class App extends React.Component {
     start_point: "",
     end_point: "",
     coordinates: {},
+    datetime: {},
     error: false,
     num_itineraries: 3
   }
@@ -55,6 +56,12 @@ export default class App extends React.Component {
     });
   }
 
+  getDateTime = (data) => {
+    this.setState({
+      datetime: data
+    });
+  }
+
   clearData = () => {
     this.setState({
       start_point: "",
@@ -67,11 +74,16 @@ export default class App extends React.Component {
   render() { 
     return (
       <div id="app">
-        <Header onSubmit={this.getEndpoints} onClear={this.clearData} onRouteOptionsUpdate={this.getRouteOptions} />
+        <Header
+          onSubmit={this.getEndpoints}
+          onClear={this.clearData}
+          onRouteOptionsUpdate={this.getRouteOptions}
+          onDatePick={this.getDateTime}
+        />
         {this.state.error && <Alert variant="danger" className="m-1" onClose={ () => this.setState({error: false}) } dismissible>
           {this.state.error}
         </Alert>}
-        <Timetable coordinates={this.state.coordinates} num_itineraries={this.state.num_itineraries} />
+        <Timetable coordinates={this.state.coordinates} datetime={this.state.datetime} num_itineraries={this.state.num_itineraries} />
       </div>
     );
   }

@@ -3,13 +3,19 @@ import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
+import Datetime from 'react-datetime';
+import moment from 'moment';
+
+import './react-datetime.css';
 
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             time: new Date().toLocaleString("en-GB"),
-            routeOptions: new Array(10).fill().map( (el, i) => 1 + i),
+            depart_date: "Real time",
+            datepicker_value: "",
+            routeOptions: new Array(10).fill().map( (el, i) => i + 1),
             currentRouteOption: 3
         };
 
@@ -19,6 +25,8 @@ export default class Header extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClear = this.handleClear.bind(this);
         this.selectRouteOption = this.selectRouteOption.bind(this);
+        this.pickDate = this.pickDate.bind(this);
+        this.toggleRealtime = this.toggleRealtime.bind(this);
     }
 
     componentDidMount() {
@@ -40,6 +48,7 @@ export default class Header extends React.Component {
     handleClear() {
         this.startText.current.value = "";
         this.endText.current.value = "";
+        this.toggleRealtime();
         this.props.onClear();
     }
 
@@ -48,6 +57,29 @@ export default class Header extends React.Component {
             currentRouteOption: event.target.innerText
         }, () => {
             this.props.onRouteOptionsUpdate(this.state.currentRouteOption);
+        });
+    }
+
+    pickDate(event) {
+        if (event._isValid) {
+            let dateObj = {
+                date: moment(event).format("YYYY-MM-DD"),
+                time: moment(event).format("HH:mm")
+            };
+            this.props.onDatePick(dateObj);
+            this.setState({
+                depart_date: moment(event).format("DD/MM/YYYY HH:mm"),
+                datepicker_value: moment(event).format("DD/MM/YYYY HH:mm")
+            });
+        }
+    }
+
+    toggleRealtime() {
+        this.setState({
+            depart_date: "Real time",
+            datepicker_value: ""
+        }, () => {
+            this.props.onDatePick({});
         });
     }
      
@@ -63,6 +95,18 @@ export default class Header extends React.Component {
                     <Form onSubmit={this.handleSubmit} inline>
                         <Form.Control ref={this.startText} name="start" type="text" placeholder="Starting point" className="m-2" required />
                         <Form.Control ref={this.endText} name="end" type="text" placeholder="End point" className="m-2" required />
+                        <Dropdown>
+                            <Dropdown.Toggle variant="info" className="m-2">{this.state.depart_date}</Dropdown.Toggle>
+                            <Dropdown.Menu className="p-1">
+                                <Dropdown.Item disabled>Departure time</Dropdown.Item>
+                                <Dropdown.Item onClick={this.toggleRealtime}>Real time</Dropdown.Item>
+                                <Dropdown.Item disabled>
+                                    Set time below <br />
+                                    (close the dialog to confirm)
+                                </Dropdown.Item>
+                                <Datetime dateFormat="DD/MM/YYYY" timeFormat="HH:mm" inputProps={{ value: this.state.datepicker_value }} onBlur={this.pickDate} />
+                            </Dropdown.Menu>
+                        </Dropdown>
                         <Dropdown>
                             <Dropdown.Toggle variant="info">{this.state.currentRouteOption}</Dropdown.Toggle>
                             <Dropdown.Menu>

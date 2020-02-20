@@ -5,7 +5,8 @@ import Alert from 'react-bootstrap/Alert'
 import { useQuery } from '@apollo/react-hooks';
 import { loader } from 'graphql.macro';
 
-const ROUTE_QUERY = loader("../queries/routes.graphql");
+const ROUTE_QUERY_REALTIME = loader("../queries/routes_realtime.graphql");
+const ROUTE_QUERY_DELAYED = loader("../queries/routes_delayed.graphql");
 
 function renderStep(row, index, tab) {
     let key_base = tab.toString() + "-" + index.toString();
@@ -63,15 +64,18 @@ function renderRoute(route, num, dur) {
 export default function Timetable(props) {
 
     let coordinates = props.coordinates;
+    let datetime = props.datetime;
 
-    const { loading, error, data } = useQuery(ROUTE_QUERY, {
+    const { loading, error, data } = useQuery(Object.keys(datetime).length === 0 ? ROUTE_QUERY_REALTIME : ROUTE_QUERY_DELAYED, {
         skip: Object.keys(coordinates).length === 0,
         variables: {
             fromLat: coordinates.fromLat,
             fromLon: coordinates.fromLon,
             toLat: coordinates.toLat,
             toLon: coordinates.toLon,
-            num_itineraries: props.num_itineraries
+            num_itineraries: props.num_itineraries,
+            date: datetime.date,
+            time: datetime.time
         },
         pollInterval: Object.keys(coordinates).length === 0 ? 0 : 30000,
         fetchPolicy: "network-only"

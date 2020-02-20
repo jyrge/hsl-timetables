@@ -5,16 +5,17 @@ Fetches simple timetables for public transportation in Helsinki area (HSL) betwe
 ## Features
 
 * Search locations by their known names / addresses (uses the closest interpretation from Digitransit Geocoding API, so try to be specific)
-* Fetches and displays three next itineraries from Digitransit Routing API, in real time.
-
-Well, atm it doesn't do anything else.
+* Fetch and display itineraries (1-10, default 3) from Digitransit Routing API, in real time or delayed.
+* Responsive user interface.
 
 ## Libraries
 
 Uses React 16.12.0 and Bootstrap 4.3 for UI component and Apollo Client for GraphQL queries.
 
 * React 16.12.0
-* react-bootstrap (Bootstrap 4.3)
+* react-bootstrap 1.0.0-beta.16 (Bootstrap 4.3)
+* react-datetime 2.16.3
+* moment.js 2.24.0
 * apollo-boost 0.4.7
 * @apollo/react-hooks 3.1.3
 
