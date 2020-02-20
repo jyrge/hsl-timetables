@@ -41,6 +41,11 @@ export default class Header extends React.Component {
     handleClear() {
         this.startText.current.value = "";
         this.endText.current.value = "";
+        this.setState({
+            currentRouteOption: 3
+        }, () => {
+            this.props.onRouteOptionsUpdate(this.state.currentRouteOption);
+        });
         this.toggleRealtime();
         this.props.onClear();
     }
@@ -114,5 +119,5 @@ export default class Header extends React.Component {
             </Navbar>
         );
     }
-    
+
 }
