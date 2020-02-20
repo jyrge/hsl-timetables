@@ -86,7 +86,7 @@ export default function Timetable(props) {
             <Card className="text-center m-1">
                 <Card.Body>
                     <Card.Title>Loading...</Card.Title>
-                    <Card.Text>Please wait!</Card.Text>
+                    <Card.Text>Please wait.</Card.Text>
                 </Card.Body>
             </Card>
         );
@@ -145,7 +145,7 @@ export default function Timetable(props) {
             <Card.Body>
                 <Card.Title>Nothing here!</Card.Title>
                 <Card.Text>
-                    To get timetables, search with endpoint names.
+                    Search to fetch timetables.
                 </Card.Text>
             </Card.Body>
         </Card>

@@ -108,7 +108,7 @@ export default class Header extends React.Component {
                         <Dropdown>
                             <Dropdown.Toggle variant="info">{this.state.currentRouteOption}</Dropdown.Toggle>
                             <Dropdown.Menu>
-                                <Dropdown.Item disabled>Number of entries</Dropdown.Item>
+                                <Dropdown.Item disabled>Itineraries</Dropdown.Item>
                                 {this.state.routeOptions.map( (option, index) => <Dropdown.Item onClick={this.selectRouteOption} key={"d" + index}>{option}</Dropdown.Item> )}
                             </Dropdown.Menu>
                         </Dropdown>
