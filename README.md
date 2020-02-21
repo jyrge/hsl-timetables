@@ -34,4 +34,4 @@ In the project root, build the Docker image, e.g.
 
 Run with (on localhost:8080, you can change the port to something else if you wish):
 
-`docker run -p 8080:80 jyrge/hsl-timetables`
+`docker run -d -p 8080:80 jyrge/hsl-timetables`

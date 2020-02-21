@@ -15,7 +15,7 @@ function renderStep(row, index, tab) {
     
     return (
         <tr key={key_base}>
-            <td key={key_base + "-0"}>{index}</td>
+            <td key={key_base + "-0"}>{index + 1}</td>
             <td key={key_base + "-1"}>{row.mode}</td>
             <td key={key_base + "-2"}>{row.startTime}</td>
             <td key={key_base + "-3"}>{row.fromPlace}</td>

@@ -83,7 +83,7 @@ export default class Header extends React.Component {
      
     render() {
         return (
-            <Navbar expand="lg" bg="dark" variant="dark" collapseOnSelect>
+            <Navbar expand="lg" bg="dark" variant="dark">
                 <Navbar.Brand>HSL Timetables</Navbar.Brand>
                 <Navbar.Text>
                     <Clock />
@@ -98,11 +98,7 @@ export default class Header extends React.Component {
                             <Dropdown.Menu className="p-1">
                                 <Dropdown.Item disabled>Departure time</Dropdown.Item>
                                 <Dropdown.Item onClick={this.toggleRealtime}>Real time</Dropdown.Item>
-                                <Dropdown.Item disabled>
-                                    Delayed &#x25BC; <br />
-                                    (close to accept)
-                                </Dropdown.Item>
-                                <Datetime dateFormat="DD/MM/YYYY" timeFormat="HH:mm" inputProps={{ value: this.state.datepicker_value }} onBlur={this.pickDate} />
+                                <Datetime dateFormat="DD/MM/YYYY" timeFormat="HH:mm" inputProps={{ value: this.state.datepicker_value, readOnly: "readonly", placeholder: "Pick Date and Time" }} onBlur={this.pickDate} />
                             </Dropdown.Menu>
                         </Dropdown>
                         <Dropdown>
