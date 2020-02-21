@@ -96,15 +96,18 @@ export default class Header extends React.Component {
                         <Dropdown>
                             <Dropdown.Toggle variant="info" className="m-2">{this.state.depart_date}</Dropdown.Toggle>
                             <Dropdown.Menu className="p-1">
-                                <Dropdown.Item disabled>Departure time</Dropdown.Item>
+                                <Dropdown.Header>Departure time</Dropdown.Header>
+                                <Dropdown.Divider />
                                 <Dropdown.Item onClick={this.toggleRealtime}>Real time</Dropdown.Item>
+                                <Dropdown.Divider />
                                 <Datetime dateFormat="DD/MM/YYYY" timeFormat="HH:mm" inputProps={{ value: this.state.datepicker_value, readOnly: "readonly", placeholder: "Pick Date and Time" }} onBlur={this.pickDate} />
                             </Dropdown.Menu>
                         </Dropdown>
                         <Dropdown>
                             <Dropdown.Toggle variant="info">{this.state.currentRouteOption}</Dropdown.Toggle>
                             <Dropdown.Menu>
-                                <Dropdown.Item disabled>Itineraries</Dropdown.Item>
+                                <Dropdown.Header>Itineraries</Dropdown.Header>
+                                <Dropdown.Divider />
                                 {this.state.routeOptions.map( (option, index) => <Dropdown.Item onClick={this.selectRouteOption} key={"d" + index}>{option}</Dropdown.Item> )}
                             </Dropdown.Menu>
                         </Dropdown>
