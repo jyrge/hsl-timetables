@@ -133,7 +133,7 @@ export default function Timetable(props) {
                 <Card.Body>
                     <Card.Title>No results!</Card.Title>
                     <Card.Text>
-                        Routes were not found between the locations in your search. Make sure your locations are inside the HSL area.
+                        Routes were not found between the locations in your search. Make sure your locations are inside the HSL area or specify the search terms.
                     </Card.Text>
                 </Card.Body>
             </Card>

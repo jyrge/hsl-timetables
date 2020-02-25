@@ -13,9 +13,9 @@ Fetches simple timetables for public transportation in Helsinki area (HSL) betwe
 Uses React 16.12.0 and Bootstrap 4.4 for UI and Apollo Client for GraphQL queries.
 
 * React 16.12.0
+* Bootstrap 4.4.1
 * react-bootstrap 1.0.0-beta.16
 * react-datetime 2.16.3
-* bootstrap 4.4.1
 * moment.js 2.24.0
 * apollo-boost 0.4.7
 * @apollo/react-hooks 3.1.3

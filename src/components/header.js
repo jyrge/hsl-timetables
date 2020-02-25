@@ -91,8 +91,8 @@ export default class Header extends React.Component {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse className="justify-content-end" id="responsive-navbar-nav">
                     <Form onSubmit={this.handleSubmit} inline>
-                        <Form.Control ref={this.startText} name="start" type="text" placeholder="Starting point" className="m-2" required />
-                        <Form.Control ref={this.endText} name="end" type="text" placeholder="End point" className="m-2" required />
+                        <Form.Control ref={this.startText} name="start" type="text" placeholder="Origin" className="m-2" required />
+                        <Form.Control ref={this.endText} name="end" type="text" placeholder="Destination" className="m-2" required />
                         <Dropdown>
                             <Dropdown.Toggle variant="info" className="m-2">{this.state.depart_date}</Dropdown.Toggle>
                             <Dropdown.Menu className="p-1">
@@ -111,7 +111,7 @@ export default class Header extends React.Component {
                                 {this.state.routeOptions.map( (option, index) => <Dropdown.Item onClick={this.selectRouteOption} key={"d" + index}>{option}</Dropdown.Item> )}
                             </Dropdown.Menu>
                         </Dropdown>
-                        <Button variant="success" type="submit" className="m-2">Get routes</Button>
+                        <Button variant="success" type="submit" className="m-2">Find routes</Button>
                         <Button variant="danger" onClick={this.handleClear} className="m-2">Clear</Button>            
                     </Form>
                 </Navbar.Collapse>
